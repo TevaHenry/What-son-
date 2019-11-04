@@ -6,7 +6,7 @@ import {
 
 const Display = () => (
   <DisplayContainer>
-    
+    Display
   </DisplayContainer>
 )
 
