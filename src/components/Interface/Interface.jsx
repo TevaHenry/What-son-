@@ -9,9 +9,9 @@ import {
 
 const Interface = () => (
   <InterfaceContainer>
-    <LanguageToggle />
+    <LanguageToggle heading="From"/>
     <Mic />
-    <LanguageToggle />
+    <LanguageToggle heading="To"/>
   </InterfaceContainer>
 )
 

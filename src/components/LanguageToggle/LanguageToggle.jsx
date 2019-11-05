@@ -1,16 +1,17 @@
 import React from 'react';
 
-import LanguageButton from '../LanguageButton/LanguageButton';
+import LanguageChoice from '../LanguageChoice/LanguageChoice';
 
 import {
   LanguageToggleContainer
 } from './LanguageToggleStyles';
 
-const LanguageToggle = () => (
+const LanguageToggle = ({ heading }) => (
   <LanguageToggleContainer>
-    <LanguageButton />
-    <LanguageButton />
-    <LanguageButton />
+    <h3>{heading}</h3>
+    <LanguageChoice language="English"/>
+    <LanguageChoice language="Français"/>
+    <LanguageChoice language="Español"/>
   </LanguageToggleContainer>
 )
 

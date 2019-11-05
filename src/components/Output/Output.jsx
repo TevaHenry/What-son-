@@ -8,8 +8,8 @@ import {
 
 const Output = () => (
   <OutputContainer>
-    <Display />
-    <Display />
+    <Display heading="Original text"/>
+    <Display heading="Translated text"/>
   </OutputContainer>
 )
 

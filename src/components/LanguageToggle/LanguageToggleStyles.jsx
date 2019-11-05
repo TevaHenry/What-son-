@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
 export const LanguageToggleContainer = styled.div`
-  border: red 2px solid
+  background: #1580b6;
+  height: 90%;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;

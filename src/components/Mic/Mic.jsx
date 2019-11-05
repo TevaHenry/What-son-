@@ -6,7 +6,6 @@ import {
 
 const Mic = () => (
   <MicContainer>
-    Mic
   </MicContainer>
 )
 

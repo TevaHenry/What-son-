@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const MicContainer = styled.div`
-  border: orange 2px solid;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
+  background: #e0eff2;
 `;

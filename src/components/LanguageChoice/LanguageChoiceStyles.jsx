@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const OutputContainer = styled.div`
-  height: 55vh;
+export const LanguageChoiceContainer = styled.div`
+  width: 50%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 `;

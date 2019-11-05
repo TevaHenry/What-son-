@@ -6,7 +6,7 @@ import {
 
 const LanguageButton = () => (
   <LanguageButtonContainer>
-    <p>ES</p>
+    TH
   </LanguageButtonContainer>
 )
 

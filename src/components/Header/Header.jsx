@@ -6,7 +6,7 @@ import {
 
 const Header = () => (
   <HeaderContainer>
-    Header
+    Translator app
   </HeaderContainer>
 )
 

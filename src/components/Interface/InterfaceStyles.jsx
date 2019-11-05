@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const InterfaceContainer = styled.div`
-  border: yellow 2px dashed;
+  height: 35vh;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 `;
