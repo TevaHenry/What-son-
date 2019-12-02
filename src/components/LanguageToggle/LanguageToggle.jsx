@@ -6,12 +6,12 @@ import {
   LanguageToggleContainer
 } from './LanguageToggleStyles';
 
-const LanguageToggle = ({ heading }) => (
+const LanguageToggle = ({ heading, handler }) => (
   <LanguageToggleContainer>
     <h3>{heading}</h3>
-    <LanguageChoice language="English"/>
-    <LanguageChoice language="Français"/>
-    <LanguageChoice language="Español"/>
+    <LanguageChoice language="English" languageCode="en-US" handler={handler}/>
+    <LanguageChoice language="Français" languageCode="fr-FR" handler={handler}/>
+    <LanguageChoice language="Español" languageCode="es-ES" handler={handler}/>
   </LanguageToggleContainer>
 )
 

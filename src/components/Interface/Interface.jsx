@@ -1,17 +1,12 @@
 import React from 'react';
 
-import LanguageToggle from '../LanguageToggle/LanguageToggle';
-import Mic from '../Mic/Mic';
-
 import {
   InterfaceContainer
 } from './InterfaceStyles';
 
-const Interface = () => (
+const Interface = ({ children }) => (
   <InterfaceContainer>
-    <LanguageToggle heading="From"/>
-    <Mic />
-    <LanguageToggle heading="To"/>
+    {children}
   </InterfaceContainer>
 )
 

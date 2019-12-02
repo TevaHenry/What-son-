@@ -6,10 +6,10 @@ import {
   OutputContainer
 } from './OutputStyles';
 
-const Output = () => (
+const Output = ({ originalLanguage, originalText, translatedLanguage, translatedText }) => (
   <OutputContainer>
-    <Display heading="Original text"/>
-    <Display heading="Translated text"/>
+    <Display heading={originalLanguage} outputText={originalText}/>
+    <Display heading={translatedLanguage} outputText={translatedText}/>
   </OutputContainer>
 )
 

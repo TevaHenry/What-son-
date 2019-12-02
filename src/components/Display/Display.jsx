@@ -4,9 +4,7 @@ import {
   DisplayContainer
 } from './DisplayStyles';
 
-let outputText = 'this is temporary';
-
-const Display = ({ heading }) => (
+const Display = ({ heading, outputText }) => (
   <DisplayContainer>
     <h3>{heading}</h3>
     <p>{outputText}</p>
