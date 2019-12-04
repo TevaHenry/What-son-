@@ -75,7 +75,7 @@ function MainPage() {
   }
 
   useEffect(() => {
-    const getCredentials = async () => {
+    const establishConnection = async () => {
       
       const response = await fetch('http://localhost:3000/');
       const myjson = await response.json();
@@ -103,7 +103,6 @@ function MainPage() {
         const data = JSON.parse(event.data);
         if (data.hasOwnProperty('results')) {
           if (data.results.length) {
-          console.log(data)
           fetch('http://localhost:3000/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -182,7 +181,7 @@ function MainPage() {
         console.log('getUserMedia not supported on your browser!');
     }
   }
-  getCredentials();
+  establishConnection();
 }, [inputLanguage, outputLanguage])
   
   return (  

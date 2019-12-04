@@ -15,8 +15,4 @@ export const LanguageChoiceContainer = styled.div`
     cursor: pointer;
     z-index: 2;
   }
-
-  button:focus {
-    /* outline: 0; */
-  }
 `;

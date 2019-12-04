@@ -47,6 +47,7 @@ export const InfoContainer = styled.div`
       display: block;
       position: relative;
       margin: auto;
+      font-size: 2.5vmin;
 
       animation: ${expand} 0.4s ease-out forwards
     }
