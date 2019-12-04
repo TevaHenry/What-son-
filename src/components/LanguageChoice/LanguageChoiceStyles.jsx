@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LanguageChoiceContainer = styled.div`
-  width: 70%;
+  width: 12vw;
   display: flex;
   justify-content: space-between;
   align-items: center;

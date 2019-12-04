@@ -7,6 +7,7 @@ export const DisplayContainer = styled.div`
   border-radius: 6px;
   padding: 10px;
   color: grey;
+  z-index: 2;
 
   p {
     color: black;
