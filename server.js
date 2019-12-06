@@ -22,7 +22,7 @@ const languageTranslator = new LanguageTranslatorV3({
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.get('*', function(req, res) {
+  app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
   });
 };
@@ -31,39 +31,46 @@ app.get('service-worker.js', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'service-worker.js'));
 });
 
+let tokenCache = [];
+
 app.get('/token', async (req, res) => {
   // request authorisation token
-  const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Accept': 'application/json'
-  };
+  if (tokenCache.length) {
+    res.send(tokenCache[0])
+  } else {
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    };
 
-  const options = {
-      url: 'https://iam.cloud.ibm.com/identity/token',
-      method: 'POST',
-      form: {
-        grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
-        apikey: process.env.API_SPEECH
-      },
-      headers: headers
-  };
+    const options = {
+        url: 'https://iam.cloud.ibm.com/identity/token',
+        method: 'POST',
+        form: {
+          grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
+          apikey: process.env.API_SPEECH
+        },
+        headers: headers
+    };
 
-  function callback(error, response, body) {
-      if (!error && response.statusCode == 200) {
-          res.send(body);
-      }
-  }
+    function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            tokenCache.push(body)
+            res.send(body);
+        }
+    }
+    
+    request(options, callback);
+    }
   
-  request(options, callback);
 });
 
 app.post('/', (req, res) => {
   const { data, outputLanguage, inputLanguage } = req.body
   // translate data
-  const languageModel = inputLanguage.slice(0, 3) + outputLanguage
   const translateParams = {
     text: data,
-    model_id: languageModel
+    model_id: inputLanguage.slice(0, 3) + outputLanguage
   }
 
   languageTranslator.translate(translateParams)

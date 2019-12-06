@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import Particles from 'react-particles-js';
 
 import Header from '../../components/Header/Header';
@@ -79,7 +79,7 @@ function MainPage() {
   useEffect(() => {
     const establishConnection = async () => {
       
-      const response = await fetch('http://localhost:3001/token');
+      const response = await fetch('/token');
       const myjson = await response.json();
       const token = await myjson.access_token;
     
@@ -105,7 +105,7 @@ function MainPage() {
         const data = JSON.parse(event.data);
         if (data.hasOwnProperty('results')) {
           if (data.results.length) {
-          fetch('http://localhost:3001/', {
+          fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -125,8 +125,8 @@ function MainPage() {
         console.log(event.data);
       }
 
-      const listen = document.querySelector('.startRecording');
-      const stop = document.querySelector('.stopRecording');
+       const listen = document.querySelector('.startRecording');
+       const stop = document.querySelector('.stopRecording');
 
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         console.log('getUserMedia supported.');
@@ -136,44 +136,43 @@ function MainPage() {
     
           // Success callback
           .then(stream => {
-              const mediaRecorder = new MediaRecorder(stream);
-              listen.onclick = function(event) {
+            const mediaRecorder = new MediaRecorder(stream);
+              
+            listen.onclick = function(event) {
+              event.preventDefault();
+              
+              if (websocket.readyState === 1 && mediaRecorder.state === 'inactive') {
+                setIsRecording(isRecording => !isRecording)
+                websocket.send(JSON.stringify({
+                  action: 'start',
+                  'content-type': 'application/octet-stream',
+                  'interim_results': true,
+                  'inactivity_timeout': 100
+                }));
+                mediaRecorder.start(300);
+
+                console.log(mediaRecorder.state);
+                console.log("recorder started");
+              }
+
+              stop.onclick = function(event) {
                 event.preventDefault();
-                
-                console.log('inputLang:', inputLanguage)
-                console.log('outputLang:', outputLanguage)
-                console.log('uri:', wsURI)
-                if (websocket.readyState === 1 && mediaRecorder.state === 'inactive') {
-                  setIsRecording(isRecording => !isRecording)
-                  websocket.send(JSON.stringify({
-                    action: 'start',
-                    'content-type': 'application/octet-stream',
-                    'interim_results': true,
-                    'inactivity_timeout': 100
-                  }));
-                  mediaRecorder.start(1000);
-
+                console.log("it stops")
+                setIsRecording(isRecording => !isRecording);
+                if (mediaRecorder.state === 'recording') {
+                  mediaRecorder.stop();
                   console.log(mediaRecorder.state);
-                  console.log("recorder started");
+                  console.log("recorder stopped");
                 }
+              }
 
-                stop.onclick = function(event) {
-                  event.preventDefault();
-                  setIsRecording(isRecording => !isRecording);
-                  if(mediaRecorder.state === 'recording') {
-                    mediaRecorder.stop();
-                    console.log(mediaRecorder.state);
-                    console.log("recorder stopped");
-                  }
-                }
+              mediaRecorder.ondataavailable = function(event) {
+                websocket.send(event.data)
+              }
 
-                mediaRecorder.ondataavailable = function(event) {
-                  websocket.send(event.data)
-                }
-
-                mediaRecorder.onstop = function(event) {            
-                  websocket.send(JSON.stringify({action: 'stop'}))
-                }
+              mediaRecorder.onstop = function(event) {            
+                websocket.send(JSON.stringify({action: 'stop'}))
+              }
           }})
           .catch(function(err) {
               console.log('The following getUserMedia error occured: ' + err);
