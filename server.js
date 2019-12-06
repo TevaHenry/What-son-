@@ -4,13 +4,18 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
 const request = require('request');
+const compression = require('compression');
+const enforce = require('express-sslify');
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(compression());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(cors());
 
 const languageTranslator = new LanguageTranslatorV3({
